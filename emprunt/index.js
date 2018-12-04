@@ -4,6 +4,7 @@ const pg = require('pg');
 const path = require('path');
 const bodyParser = require('body-parser')
 const app = express()
+//const connectionString = 'postgresql://ripoul:Motherlode0@localhost:5432/service';
 const connectionString = 'postgresql://emprunt:emprunt@10.5.0.3:5432/emprunt';
 const baseUri = '/api/v1/emprunt'
 
@@ -76,7 +77,7 @@ app.put(baseUri, (req, res) => {
     // Grab data from http request
     const data = { id: req.body.id, nom: req.body.nom, prenom: req.body.prenom, livre: req.body.livre };
     if (data.id == undefined || !data.nom || !data.prenom || data.livre == undefined) {
-        return response.status(500).json({ success: false, data: 'il manque un paramètre' });
+        return res.status(500).json({ success: false, data: 'il manque un paramètre' });
     }
     // Get a Postgres client from the connection pool
     return pg.connect(connectionString, (err, client, done) => {
@@ -173,3 +174,5 @@ app.get(baseUri + '/byLivre', (req, res) => {
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })
+
+module.exports = app;
