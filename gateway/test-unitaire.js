@@ -43,7 +43,7 @@ describe('/GET emprunt', () => {
 */
 describe('/POST livre', () => {
     it('devrait add un livre et tous les retourner', (done) => {
-        let livre = { titre: "Mein Leben", auteur "Nietzsche", resume: "résumé du livre", quantite:1 };
+        let livre = { titre: "Mein Lebendd", auteur:"Nietzsche", resume: "résumé du livre", quantite:1 };
         chai.request(server)
             .post('/api/v1/micro-book/livre')
             .send(JSON.stringify(livre))
@@ -58,7 +58,7 @@ describe('/POST livre', () => {
             });
     });
     it('missing parameter', (done) => {
-        let livre = { titre: "Mein Leben", auteur "Nietzsche", quantite:1 };
+        let livre = { titre: "Mein Leben", auteur:"Nietzsche", quantite:1 };
         chai.request(server)
             .post('/api/v1/micro-book/livre')
             .send(JSON.stringify(livre))
@@ -111,7 +111,7 @@ describe('/POST emprunt', () => {
 */
 describe('/PUT livre', () => {
     it('devrait modifier un livre et tous les retourner', (done) => {
-        let livre = {id:1, titre: "Aus meinem Leben", auteur "Nietzsche", resume: "résumé du livre", quantite:1 };
+        let livre = {id:1, titre: "Aus meinem Leben", auteur :"Nietzsche", resume: "résumé du livre", quantite:1 };
         chai.request(server)
             .put('/api/v1/micro-book/livre')
             .send(JSON.stringify(livre))
@@ -122,50 +122,15 @@ describe('/PUT livre', () => {
                 res.body.success.should.be.eql(true);
                 res.body.data.should.be.a("array");
                 res.body.data.length.should.be.eql(1);
-                res.body.data[0].prenom.should.be.eql("THOMAS");
+                res.body.data[0].titre.should.be.eql("Aus meinem Leben");
                 done();
             });
     });
     it('missing parameter', (done) => {
-        let livre = {titre: "Aus meinem Leben", auteur "Nietzsche", resume: "résumé du livre", quantite:1 };
+        let livre = {titre: "Aus meinem Leben", auteur: "Nietzsche", resume: "résumé du livre", quantite:1 };
         chai.request(server)
             .put('/api/v1/micro-book/livre')
             .send(JSON.stringify(livre))
-            .set('content-type', 'application/json')
-            .end((err, res) => {
-                res.should.have.status(500);
-                res.body.should.be.a('object');
-                res.body.success.should.be.eql(false);
-                done();
-            });
-    });
-});
-
-/*
-* Test /PUT route EMPRUNT
-*/
-describe('/PUT emprunt', () => {
-    it('devrait modifier un emprunt et tous les retourner', (done) => {
-        let emprunt = { id: 1, nom: "LE BRIS", prenom: "THOMAS", livre: 1 };
-        chai.request(server)
-            .put('/api/v1/micro-book/emprunt')
-            .send(JSON.stringify(emprunt))
-            .set('content-type', 'application/json')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.success.should.be.eql(true);
-                res.body.data.should.be.a("array");
-                res.body.data.length.should.be.eql(1);
-                res.body.data[0].prenom.should.be.eql("THOMAS");
-                done();
-            });
-    });
-    it('missing parameter', (done) => {
-        let emprunt = { nom: "LE BRIS", prenom: "Jules" };
-        chai.request(server)
-            .put('/api/v1/micro-book/emprunt')
-            .send(JSON.stringify(emprunt))
             .set('content-type', 'application/json')
             .end((err, res) => {
                 res.should.have.status(500);
@@ -180,18 +145,14 @@ describe('/PUT emprunt', () => {
 * Test /DELETE route LIVRE
 */
 describe('/DELETE livre', () => {
-    it('devrait supprimer un livre et tous les retourner', (done) => {
+    it('ne peut pas suprimer de livre possédant encore un emprunt', (done) => {
         let livre = { id: 1 };
         chai.request(server)
             .delete('/api/v1/micro-book/livre')
             .send(JSON.stringify(livre))
             .set('content-type', 'application/json')
             .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.success.should.be.eql(true);
-                res.body.data.should.be.a("array");
-                res.body.data.length.should.be.eql(0);
+                res.should.have.status(500);
                 done();
             });
     });

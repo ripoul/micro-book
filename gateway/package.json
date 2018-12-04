@@ -4,7 +4,7 @@
   "description": "gateway for micro service book",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --timeout 10000 test-unitaire.js",
     "start": "node index.js"
   },
   "author": "Jules LE BRIS",
@@ -14,6 +14,9 @@
     "express": "^4.16.4",
     "node-fetch": "^2.3.0",
     "path": "^0.12.7",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "mocha": "^5.2.0"
   }
 }
