@@ -13,12 +13,11 @@ app.use(bodyParser.urlencoded());
 
 /* insert */
 app.post(baseUri, (req, res) => {
-    console.log("emprunt post");
     const results = [];
     // Grab data from http request
     const data = { nom: req.body.nom, prenom: req.body.prenom, livre: req.body.livre };
     if (!data.nom || !data.prenom || data.livre == undefined) {
-        return res.status(500).json({ success: false, data: 'missing parameter' });
+        return res.status(500).json({ success: false, data: 'il manque un paramètre' });
     }
     // Get a Postgres client from the connection pool
     return pg.connect(connectionString, (err, client, done) => {
@@ -50,7 +49,6 @@ app.post(baseUri, (req, res) => {
 
 /* read */
 app.get(baseUri, (req, res) => {
-    console.log("emprunt get");
     const results = [];
     // Get a Postgres client from the connection pool
     return pg.connect(connectionString, (err, client, done) => {
@@ -75,12 +73,11 @@ app.get(baseUri, (req, res) => {
 
 /* UPDATE */
 app.put(baseUri, (req, res) => {
-    console.log("emprunt put");
     const results = [];
     // Grab data from http request
     const data = { id: req.body.id, nom: req.body.nom, prenom: req.body.prenom, livre: req.body.livre };
     if (data.id == undefined || !data.nom || !data.prenom || data.livre == undefined) {
-        return res.status(500).json({ success: false, data: 'missing parameter' });
+        return res.status(500).json({ success: false, data: 'il manque un paramètre' });
     }
     // Get a Postgres client from the connection pool
     return pg.connect(connectionString, (err, client, done) => {
@@ -112,12 +109,11 @@ app.put(baseUri, (req, res) => {
 
 /* DELETE */
 app.delete(baseUri, (req, res) => {
-    console.log("emprunt delete");
     const results = [];
     // Grab data from the URL parameters
     const id = req.body.id;
     if (id == undefined) {
-        return res.status(500).json({ success: false, data: 'missing parameter' });
+        return res.status(500).json({ success: false, data: 'il manque un paramètre' });
     }
     // Get a Postgres client from the connection pool
     return pg.connect(connectionString, (err, client, done) => {
@@ -148,12 +144,11 @@ app.delete(baseUri, (req, res) => {
 
 /* get emprunt by livre */
 app.get(baseUri + '/byLivre', (req, res) => {
-    console.log("get emprunt by livre");
     const results = [];
     // Grab data from the URL parameters
     const livre_id = req.query.livre_id;
     if (livre_id == undefined) {
-        return res.status(500).json({ success: false, data: 'missing parameter' });
+        return res.status(500).json({ success: false, data: 'il manque un paramètre' });
     }
     // Get a Postgres client from the connection pool
     return pg.connect(connectionString, (err, client, done) => {

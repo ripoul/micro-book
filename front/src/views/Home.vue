@@ -4,7 +4,7 @@
       <span>{{sb.error}}</span>
       <md-button class="md-primary" @click="sb.showSnackbar = false">Retry</md-button>
     </md-snackbar>
-    <h1>Micro Book Front</h1>
+    <h1>Micro Book</h1>
     <LivreList v-bind:livres="livres"/>
   </div>
 </template>
