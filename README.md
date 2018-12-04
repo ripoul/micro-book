@@ -9,4 +9,6 @@ lancer la commande ci-dessus dans chaque micro-service. Pour verifier son bon fo
 
 ## IHM
 
-SOON
+Le front est réalisé avec vue.js. Dans le repertoire front : 
+- npm install
+- npm run serve
