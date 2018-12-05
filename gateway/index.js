@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
+var cors = require('cors')
 const baseUriLivre = '/api/v1/micro-book/livre';
 const baseUriEmprunt = '/api/v1/micro-book/emprunt';
 const APILivre = 'http://localhost:3001/api/v1/livre';
@@ -14,9 +15,7 @@ global.Headers = fetch.Headers;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-/*app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-});*/
+app.use(cors())
 
 //get livre
 app.get(baseUriLivre, (req, response) => {
