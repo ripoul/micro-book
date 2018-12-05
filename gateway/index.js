@@ -14,9 +14,9 @@ global.Headers = fetch.Headers;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-  });
+});*/
 
 //get livre
 app.get(baseUriLivre, (req, response) => {
